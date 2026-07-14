@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   root "welcome#index"
+  get "negative-space", to: "negative_space#index", as: :negative_space
   get "autocomplete", to: "autocomplete#index"
   resources :articles, only: [:show]
   resources :insights, only: [:show]

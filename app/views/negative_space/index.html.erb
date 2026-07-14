@@ -1,0 +1,111 @@
+<% content_for(:title) { "Negative Space | Sense Collective" } %>
+
+<div class="w-full">
+  <div class="mb-8">
+    <h1 class="text-3xl font-semibold text-heading mb-2">Negative Space</h1>
+    <p class="text-muted">
+      Not what this collection says — what it <em>isn't</em> saying yet.
+      Surface the blind spots, then turn any one of them into a new line of research.
+    </p>
+  </div>
+
+  <%= form_with url: negative_space_path, method: :get, class: "mb-10 space-y-3" do |f| %>
+    <%= f.hidden_field :run, value: "1" %>
+
+    <%= f.text_field :topic,
+        value: params[:topic],
+        placeholder: "Narrow to a topic (optional) — leave blank to scan everything",
+        class: "w-full px-4 py-3 surface border border-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" %>
+
+    <div class="flex gap-3">
+      <%= f.select :model,
+          options_for_select(NegativeSpaceQuery::MODELS.invert, params[:model] || NegativeSpaceQuery::DEFAULT_MODEL),
+          {},
+          class: "flex-1 px-4 py-3 surface border border-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" %>
+      <%= f.submit "Find the blind spots",
+          class: "px-6 py-3 btn-primary rounded-lg cursor-pointer whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+    </div>
+  <% end %>
+
+  <% if @analysis %>
+    <% if @analysis.empty? %>
+      <div class="surface border border-strong rounded-lg p-6 text-muted">
+        <% if @analysis.corpus_count.zero? %>
+          Nothing to scan yet. Add a few sources first, then come back to see what's missing.
+        <% else %>
+          Couldn't map the negative space this time. Try again, or switch models.
+        <% end %>
+      </div>
+    <% else %>
+      <details class="mb-8 surface border border-strong rounded-lg">
+        <summary class="cursor-pointer px-5 py-3 text-sm text-muted select-none">
+          How this was generated — read by <strong class="text-body"><%= @analysis.model_label %></strong>,
+          across <%= @analysis.corpus_count %> items, grounded by <strong class="text-body"><%= @analysis.grounded_by %></strong>.
+          <span class="text-blue-400">Show the exact prompt →</span>
+        </summary>
+        <div class="px-5 pb-5">
+          <pre class="whitespace-pre-wrap text-xs text-muted bg-black/20 rounded-md p-4 mt-2 leading-relaxed"><%= @analysis.prompt %></pre>
+
+          <% if @analysis.structural_gaps.any? %>
+            <p class="text-xs text-body mt-4 mb-1 font-semibold">Measured structural gaps fed to the model:</p>
+            <ul class="text-xs text-muted space-y-1 font-mono">
+              <% @analysis.structural_gaps.each do |g| %>
+                <li><%= g %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <p class="text-xs text-muted mt-3">
+            Nothing here is hidden. Re-run with a different model above — the top blind spot often changes.
+            A gap that stays put across models is one to trust; one that flickers is softer ground.
+          </p>
+        </div>
+      </details>
+
+      <p class="text-sm text-muted mb-4 leading-relaxed">
+        Each blind spot carries an honest <strong class="text-body">confidence</strong> — how sure the model is it's a real gap, not the usual flat certainty.
+        <span class="text-emerald-300">75%+ solid</span> ·
+        <span class="text-amber-300">50–74% worth a look</span> ·
+        <span class="text-rose-300">under 50% a hunch</span>.
+      </p>
+
+      <div class="space-y-4">
+        <% @analysis.gaps.each_with_index do |gap, i| %>
+          <% badge = case gap.band
+             when :high then "bg-emerald-500/15 text-emerald-300 border-emerald-500/40"
+             when :moderate then "bg-amber-500/15 text-amber-300 border-amber-500/40"
+             else "bg-rose-500/15 text-rose-300 border-rose-500/40"
+             end %>
+          <div class="surface border border-strong rounded-lg p-5">
+            <div class="flex items-start justify-between gap-3 mb-2">
+              <div class="flex items-baseline gap-3">
+                <span class="text-muted text-sm font-mono"><%= format("%02d", i + 1) %></span>
+                <h2 class="text-lg font-semibold text-heading"><%= gap.title %></h2>
+              </div>
+              <span class="shrink-0 px-2.5 py-1 rounded-full text-xs font-semibold border <%= badge %>" title="How sure the model is that this is a real gap">
+                <%= gap.confidence %>% sure
+              </span>
+            </div>
+            <p class="text-body mb-2 leading-relaxed"><%= gap.rationale %></p>
+            <% if gap.certainty_basis.present? %>
+              <p class="text-xs text-muted mb-4">Confidence rests on: <em><%= gap.certainty_basis %></em></p>
+            <% end %>
+
+            <%= form_with url: queries_path, method: :post, class: "flex items-center gap-3" do |f| %>
+              <%= f.hidden_field :q, value: gap.question %>
+              <span class="text-sm text-muted italic flex-1">“<%= gap.question %>”</span>
+              <%= f.submit "Explore this →",
+                  class: "px-4 py-2 btn-primary rounded-lg cursor-pointer whitespace-nowrap text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="surface border border-strong rounded-lg p-6 text-muted leading-relaxed">
+      <p class="mb-3"><strong class="text-body">How it works.</strong> The lens reads everything in your collection, then asks a model to name what's conspicuously absent — the questions a sharp expert would expect to find answered here, but can't.</p>
+      <p class="mb-3">Each blind spot comes with a question. Click <strong class="text-body">Explore this</strong> and it becomes a real research thread: the system searches for sources, reads them, and folds them back in — so the blind spot starts to close.</p>
+      <p>And each one carries an honest <strong class="text-body">confidence</strong> — how sure the model is it's a real gap. A tool that tells you when it isn't sure is worth more than one that's confidently wrong.</p>
+    </div>
+  <% end %>
+</div>

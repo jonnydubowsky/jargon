@@ -5,9 +5,10 @@ class StructuredChat
 
   MAX_RETRIES = 2
 
-  def initialize(schema, instructions: nil)
+  def initialize(schema, instructions: nil, model: nil)
     @schema = schema
     @instructions = instructions
+    @model = model
     @chat = build_chat
   end
 
@@ -29,7 +30,7 @@ class StructuredChat
   private
 
   def build_chat
-    chat = LLM.chat.with_schema(@schema)
+    chat = LLM.chat(model: @model).with_schema(@schema)
     chat = chat.with_instructions(@instructions) if @instructions
     chat
   end
