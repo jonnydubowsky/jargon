@@ -1,11 +1,14 @@
 <header class="sm:fixed sm:top-0 sm:left-0 sm:right-0 surface border-b border-default sm:z-50">
   <div class="container mx-auto px-5 py-3">
-    <div class="w-full max-w-2xl mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
-      <%= link_to root_path, class: "text-2xl font-semibold text-heading flex items-center gap-3 shrink-0" do %>
-        <%= image_tag "jargon.png", class: "h-6 w-6" %>
-        <span>Jargon</span>
+    <div class="w-full max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+      <%= link_to root_path, class: "font-semibold text-heading flex items-center gap-2 shrink-0" do %>
+        <%= image_tag "sense-collective-icon.png", class: "h-8 w-8 shrink-0" %>
+        <div class="flex flex-col">
+          <span class="text-xl leading-tight">Sense Collective</span>
+          <span class="text-xs text-muted leading-tight"><strong class="text-blue-400">D</strong>ynamic <strong class="text-blue-400">K</strong>nowledge <strong class="text-blue-400">E</strong>cosystem</span>
+        </div>
       <% end %>
-      <div class="flex-1 relative min-w-0" data-controller="autocomplete">
+      <div class="flex-1 relative min-w-[200px]" data-controller="autocomplete">
         <%= form_with url: queries_path, method: :post, class: "flex gap-2" do |f| %>
           <%= f.text_field :q,
               placeholder: "URL or question...",
