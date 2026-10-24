@@ -85,7 +85,7 @@ RSpec.describe NegativeSpaceQuery do
       result = described_class.new(trail:, topic: "ruby", detector:).call
 
       expect(result.gaps).to be_empty
-      expect(result.error).to be_present
+      expect(result.error).to include("corpus")
     end
 
     it "reports a friendly error instead of silently returning no gaps" do

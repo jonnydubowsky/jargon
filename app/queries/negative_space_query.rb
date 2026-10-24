@@ -98,12 +98,13 @@ class NegativeSpaceQuery
     # Corpus assembly (incl. topic embedding) can fail too: same honest error
     # path as a failed model call, never a 500.
     Rails.logger.error("NegativeSpaceQuery corpus failed: #{e.message}")
-    empty_result.with(error: self.class.friendly_error(e))
+    empty_result.with(error: self.class.friendly_error(e, context: :corpus))
   end
 
-  # One honest line about why the model call failed, shown on the page instead
-  # of a silent empty result.
-  def self.friendly_error(exception)
+  # One honest line about why the run failed, shown on the page instead of a
+  # silent empty result. Context distinguishes the gap-model call from corpus
+  # assembly (topic embedding etc.), so the message points at the right knob.
+  def self.friendly_error(exception, context: :model)
     case exception
     when RubyLLM::PaymentRequiredError
       "The model provider rejected the request for lack of credits \u2014 top up at openrouter.ai/settings/credits."
@@ -112,7 +113,11 @@ class NegativeSpaceQuery
     when StructuredChat::ValidationError
       "The model kept returning malformed output \u2014 try a different model."
     else
-      "The model call failed (#{exception.class.name.demodulize}) \u2014 try again or switch models."
+      if context == :corpus
+        "Couldn't assemble the corpus (#{exception.class.name.demodulize}) \u2014 the embedding call may be failing; check EMBEDDING_* settings and the provider key."
+      else
+        "The model call failed (#{exception.class.name.demodulize}) \u2014 try again or switch models."
+      end
     end
   end
 
