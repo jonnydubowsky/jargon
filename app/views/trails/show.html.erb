@@ -1,0 +1,61 @@
+<% content_for(:title) { "#{@trail.display_name} | Sense Collective" } %>
+
+<div class="w-full">
+  <div class="mb-8">
+    <p class="text-xs text-muted uppercase tracking-wide mb-2">Trail · started <%= @trail.created_at.strftime("%b %-d, %Y") %></p>
+
+    <%= form_with model: @trail, method: :patch, class: "flex gap-3 items-center" do |f| %>
+      <%= f.text_field :name,
+          value: @trail.name,
+          placeholder: "Name this trail...",
+          class: "flex-1 px-3 py-2 text-2xl font-semibold text-heading bg-transparent border border-transparent hover:border-default focus:border-strong rounded-lg focus:outline-none" %>
+      <%= f.submit "Rename", class: "px-4 py-2 btn-primary rounded-lg cursor-pointer text-sm" %>
+    <% end %>
+
+    <p class="text-muted mt-2">
+      The path this session took — every question asked and page opened, in order.
+    </p>
+  </div>
+
+  <% if @trail.trail_steps.empty? %>
+    <div class="surface border border-strong rounded-lg p-6 text-muted">
+      Nothing on this trail yet. <%= link_to "Search for something", root_path, class: "text-blue-400 hover:underline" %> to add the first step.
+    </div>
+  <% else %>
+    <ol class="space-y-4">
+      <% @trail.trail_steps.includes(:subject).each do |step| %>
+        <li class="flex gap-4">
+          <div class="flex flex-col items-center shrink-0 pt-1">
+            <span class="h-7 w-7 rounded-full surface-alt border border-strong flex items-center justify-center text-xs text-muted"><%= step.position %></span>
+            <% unless step == @trail.trail_steps.last %>
+              <span class="flex-1 w-px bg-black/10 dark:bg-white/10 mt-1"></span>
+            <% end %>
+          </div>
+
+          <div class="flex-1 pb-2 min-w-0">
+            <% case step.action %>
+            <% when "searched" %>
+              <p class="text-xs text-muted mb-1">Searched</p>
+              <%= link_to step.query, root_path(q: step.query),
+                  class: "inline-block px-3 py-1.5 surface-alt border border-default rounded-full text-body hover:border-strong transition-colors" %>
+            <% when "opened" %>
+              <p class="text-xs text-muted mb-1">Opened</p>
+              <% if step.subject %>
+                <%= render "articles/article", article: step.subject %>
+              <% else %>
+                <p class="text-muted text-sm">(removed from the library)</p>
+              <% end %>
+            <% when "explored" %>
+              <p class="text-xs text-muted mb-1">Explored</p>
+              <% if step.subject %>
+                <%= link_to step.subject.try(:title) || step.subject.try(:query) || "View", step.subject, class: "text-blue-400 hover:underline" %>
+              <% else %>
+                <p class="text-muted text-sm">(removed from the library)</p>
+              <% end %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ol>
+  <% end %>
+</div>

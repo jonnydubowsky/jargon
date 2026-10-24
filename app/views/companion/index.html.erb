@@ -1,0 +1,85 @@
+<% content_for(:title) { @query.present? ? "#{@query} | Sense Collective" : "Sense Collective" } %>
+
+<div class="w-full">
+  <div class="mb-8">
+    <h1 class="text-3xl font-semibold text-heading mb-2">Search</h1>
+    <p class="text-muted">
+      Ask a question or paste a URL. What you search and what you open is remembered as a
+      <strong class="text-body">trail</strong> — the path from one idea to the next.
+    </p>
+  </div>
+
+  <%= form_with url: root_path, method: :get, class: "mb-6" do |f| %>
+    <div class="flex gap-3">
+      <%= f.text_field :q,
+          value: @query,
+          placeholder: "Question or URL...",
+          autofocus: @query.blank?,
+          class: "flex-1 px-4 py-3 surface border border-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg" %>
+      <%= f.submit "Search",
+          class: "px-6 py-3 btn-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer text-lg" %>
+    </div>
+  <% end %>
+
+  <div class="flex items-center gap-4 mb-10 text-sm text-muted">
+    <% if current_trail %>
+      <%= link_to trail_path(current_trail), class: "text-blue-400 hover:underline" do %>
+        Current trail: <%= current_trail.display_name %> (<%= pluralize(current_trail.trail_steps.size, "step") %>)
+      <% end %>
+      <%= button_to "Start a new trail", trails_path, method: :post,
+          class: "text-muted hover:text-body underline cursor-pointer bg-transparent" %>
+    <% else %>
+      <span>No trail yet — your first search starts one.</span>
+    <% end %>
+  </div>
+
+  <% if @search_error %>
+    <div class="surface border border-strong rounded-lg p-6 text-muted mb-8">
+      <%= @search_error %>
+    </div>
+  <% end %>
+
+  <% if @results %>
+    <details class="mb-6 surface border border-strong rounded-lg">
+      <summary class="cursor-pointer px-5 py-3 text-sm text-muted select-none">
+        How this was generated — results come straight from <strong class="text-body">Exa neural search</strong>,
+        unranked and unfiltered by any prompt. <span class="text-blue-400">Details →</span>
+      </summary>
+      <div class="px-5 pb-5 text-xs text-muted leading-relaxed">
+        <p class="mt-2">
+          Your query is sent verbatim to Exa's <code>/search</code> endpoint
+          (excluding <%= ExaClient::EXCLUDED_DOMAINS.join(", ") %>). No LLM sits between your
+          question and this list. Opening a result ingests it through the glass-box pipeline —
+          scrape &rarr; summarize &rarr; extract &rarr; connect — whose prompts are shown on each page.
+        </p>
+      </div>
+    </details>
+
+    <% if @results.empty? %>
+      <div class="surface border border-strong rounded-lg p-6 text-muted">
+        No results for that query. Try rephrasing it.
+      </div>
+    <% else %>
+      <div class="space-y-3">
+        <% @results.each do |result| %>
+          <div class="surface border border-default rounded-lg p-4 hover:border-strong transition-colors">
+            <%= button_to readings_path(url: result["url"], title: result["title"]),
+                method: :post,
+                class: "text-left w-full cursor-pointer bg-transparent" do %>
+              <div class="font-semibold text-heading mb-1"><%= result["title"].presence || result["url"] %></div>
+              <div class="text-xs text-muted truncate"><%= result["url"] %></div>
+              <% if result["author"].present? || result["publishedDate"].present? %>
+                <div class="text-xs text-muted mt-1">
+                  <%= [result["author"].presence, result["publishedDate"]&.to_date&.strftime("%b %-d, %Y")].compact.join(" · ") rescue nil %>
+                </div>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <p class="text-xs text-muted mt-4">
+        Opening a result reads it inside Sense Collective and adds it to your trail and library.
+      </p>
+    <% end %>
+  <% end %>
+</div>

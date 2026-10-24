@@ -18,6 +18,14 @@
       </ul>
     </div>
 
+    <%= link_to library_path, class: "block surface-alt border border-default rounded-lg p-4 hover:border-strong transition-colors" do %>
+      <h3 class="font-semibold text-heading mb-1 flex items-center gap-2">
+        Library
+        <span class="text-blue-400">→</span>
+      </h3>
+      <p class="text-muted text-xs leading-relaxed">Browse everything collected so far — articles, insights, and research threads.</p>
+    <% end %>
+
     <%= link_to negative_space_path, class: "block surface-alt border border-default rounded-lg p-4 hover:border-strong transition-colors" do %>
       <h3 class="font-semibold text-heading mb-1 flex items-center gap-2">
         Negative Space

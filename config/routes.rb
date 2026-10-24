@@ -11,7 +11,10 @@ Rails.application.routes.draw do
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
-  root "welcome#index"
+  root "companion#index"
+  get "library", to: "welcome#index"
+  resources :readings, only: [:create]
+  resources :trails, only: %i[show create update]
   get "negative-space", to: "negative_space#index", as: :negative_space
   get "autocomplete", to: "autocomplete#index"
   resources :articles, only: [:show]
