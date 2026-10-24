@@ -9,7 +9,9 @@ class QueriesController < ApplicationController
     if url?(query)
       redirect_to Article.find_or_create_by!(url: query)
     else
-      redirect_to find_or_create_search(query)
+      search = find_or_create_search(query)
+      current_trail&.record_explored!(search)
+      redirect_to search
     end
   end
 

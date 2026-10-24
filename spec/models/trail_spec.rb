@@ -31,6 +31,18 @@ RSpec.describe Trail do
     end
   end
 
+  describe "#record_explored!" do
+    it "appends an explored step and skips a consecutive duplicate" do
+      trail = Trail.create!
+      search = create(:search)
+
+      trail.record_explored!(search)
+      trail.record_explored!(search)
+
+      expect(trail.trail_steps.explored.sole.subject).to eq(search)
+    end
+  end
+
   describe "#record_opened!" do
     it "appends an opened step with increasing positions" do
       trail = Trail.create!

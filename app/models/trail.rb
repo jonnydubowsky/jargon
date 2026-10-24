@@ -23,6 +23,12 @@ class Trail < ApplicationRecord
     append_step!(action: :opened, subject: article)
   end
 
+  def record_explored!(search)
+    return if latest_step&.explored? && latest_step.subject == search
+
+    append_step!(action: :explored, subject: search)
+  end
+
   def latest_step
     trail_steps.last
   end
