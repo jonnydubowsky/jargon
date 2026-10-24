@@ -74,6 +74,20 @@ RSpec.describe NegativeSpaceQuery do
   end
 
   describe "error surfacing" do
+    it "surfaces an embedding failure on the trail+topic path instead of raising" do
+      article = create(:article)
+      create(:insight, article:)
+      trail = Trail.create!
+      trail.record_opened!(article)
+
+      allow(LLM).to receive(:embed).and_raise(StandardError, "no embed for you")
+
+      result = described_class.new(trail:, topic: "ruby", detector:).call
+
+      expect(result.gaps).to be_empty
+      expect(result.error).to be_present
+    end
+
     it "reports a friendly error instead of silently returning no gaps" do
       article = create(:article)
       create(:insight, article:)

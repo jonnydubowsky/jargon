@@ -94,6 +94,11 @@ class NegativeSpaceQuery
       grounded_by: structural.grounded? ? "InfraNodus graph analysis" : "model only",
       structural_gaps: structural.gaps.map(&:raw)
     )
+  rescue StandardError => e
+    # Corpus assembly (incl. topic embedding) can fail too: same honest error
+    # path as a failed model call, never a 500.
+    Rails.logger.error("NegativeSpaceQuery corpus failed: #{e.message}")
+    empty_result.with(error: self.class.friendly_error(e))
   end
 
   # One honest line about why the model call failed, shown on the page instead
