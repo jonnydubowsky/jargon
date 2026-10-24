@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get "library", to: "welcome#index"
   resources :readings, only: [:create]
   resources :trails, only: %i[show create update]
+  patch "prompts", to: "prompts#update", as: :prompts
+  delete "prompts", to: "prompts#destroy"
   get "negative-space", to: "negative_space#index", as: :negative_space
   get "autocomplete", to: "autocomplete#index"
   resources :articles, only: [:show]

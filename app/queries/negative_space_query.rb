@@ -14,6 +14,10 @@
 class NegativeSpaceQuery
   DEFAULT_MODEL = "google/gemini-3.8-flash"
 
+  # Registry key for the exposed prompt; INSTRUCTIONS below is the in-code
+  # default, a Prompt row overrides it (editable from the lens page).
+  PROMPT_KEY = "negative_space.instructions"
+
   # Models offered in the lens. Keys are RubyLLM/OpenRouter ids; values are labels.
   # Kept to current flagships + fast/value picks across vendors (verified against
   # the OpenRouter registry, Oct 2026).
@@ -63,7 +67,7 @@ class NegativeSpaceQuery
     end
   end
   Result = Data.define(:gaps, :model, :model_label, :models, :topic, :trail, :prompt,
-                       :corpus_count, :grounded_by, :structural_gaps, :error) do
+                       :prompt_overridden, :corpus_count, :grounded_by, :structural_gaps, :error) do
     delegate :empty?, to: :gaps
   end
 
@@ -73,6 +77,7 @@ class NegativeSpaceQuery
     @model = MODELS.key?(model) ? model : DEFAULT_MODEL
     @limit = limit
     @detector = detector
+    @instructions = Prompt.fetch(PROMPT_KEY, default: INSTRUCTIONS)
   end
 
   def call
@@ -89,7 +94,8 @@ class NegativeSpaceQuery
       models: MODELS,
       topic: @topic,
       trail: @trail,
-      prompt: INSTRUCTIONS,
+      prompt: @instructions,
+      prompt_overridden: @instructions != INSTRUCTIONS,
       corpus_count: corpus_items.size,
       grounded_by: structural.grounded? ? "InfraNodus graph analysis" : "model only",
       structural_gaps: structural.gaps.map(&:raw)
@@ -126,7 +132,7 @@ class NegativeSpaceQuery
   # Returns [gaps, error]; a failure comes back as an empty list plus an honest
   # one-line reason instead of silently empty.
   def generate_gaps(structural)
-    content = StructuredChat.new(NegativeSpaceSchema, instructions: INSTRUCTIONS, model: @model)
+    content = StructuredChat.new(NegativeSpaceSchema, instructions: @instructions, model: @model)
                             .ask(message_with(structural))
 
     gaps = content["gaps"].map do |g|
@@ -159,7 +165,8 @@ class NegativeSpaceQuery
 
   def empty_result
     Result.new(gaps: [], model: @model, model_label: MODELS.fetch(@model), models: MODELS,
-               topic: @topic, trail: @trail, prompt: INSTRUCTIONS, corpus_count: 0,
+               topic: @topic, trail: @trail, prompt: @instructions,
+               prompt_overridden: @instructions != INSTRUCTIONS, corpus_count: 0,
                grounded_by: "model only", structural_gaps: [], error: nil)
   end
 
