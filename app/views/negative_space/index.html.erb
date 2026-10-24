@@ -41,6 +41,8 @@
       <div class="surface border border-strong rounded-lg p-6 text-muted">
         <% if @analysis.corpus_count.zero? %>
           Nothing to scan yet. Add a few sources first, then come back to see what's missing.
+        <% elsif @analysis.error %>
+          <%= @analysis.error %>
         <% else %>
           Couldn't map the negative space this time. Try again, or switch models.
         <% end %>

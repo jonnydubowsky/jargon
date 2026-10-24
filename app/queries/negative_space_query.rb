@@ -12,15 +12,18 @@
 # The prompt is exposed on purpose (see INSTRUCTIONS). The same prompt can be
 # run against different models; the top blind spot often changes with the model.
 class NegativeSpaceQuery
-  DEFAULT_MODEL = "google/gemini-2.5-flash"
+  DEFAULT_MODEL = "google/gemini-3.8-flash"
 
   # Models offered in the lens. Keys are RubyLLM/OpenRouter ids; values are labels.
+  # Kept to current flagships + fast/value picks across vendors (verified against
+  # the OpenRouter registry, Oct 2026).
   MODELS = {
-    "google/gemini-2.5-flash" => "Gemini 2.5 Flash",
-    "anthropic/claude-opus-4-8" => "Claude Opus 4.8",
-    "anthropic/claude-sonnet-4-6" => "Claude Sonnet 4.6",
-    "openai/gpt-5" => "GPT-5",
-    "deepseek/deepseek-chat" => "DeepSeek"
+    "google/gemini-3.8-flash" => "Gemini 3.8 Flash",
+    "anthropic/claude-opus-5.5" => "Claude Opus 5.5",
+    "anthropic/claude-sonnet-5.5" => "Claude Sonnet 5.5",
+    "openai/gpt-5.5" => "GPT-5.5",
+    "x-ai/grok-4.7" => "Grok 4.7",
+    "deepseek/deepseek-v4.1-flash" => "DeepSeek V4.1 Flash"
   }.freeze
 
   # Exposed prompt — this is the glass box. Change it and the blind spots change.
@@ -60,8 +63,8 @@ class NegativeSpaceQuery
     end
   end
   Result = Data.define(:gaps, :model, :model_label, :models, :topic, :trail, :prompt,
-                       :corpus_count, :grounded_by, :structural_gaps) do
-    def empty? = gaps.empty?
+                       :corpus_count, :grounded_by, :structural_gaps, :error) do
+    delegate :empty?, to: :gaps
   end
 
   def initialize(topic: nil, model: DEFAULT_MODEL, limit: 40, detector: Infranodus::GapDetector.new, trail: nil)
@@ -76,9 +79,11 @@ class NegativeSpaceQuery
     return empty_result if corpus_items.empty?
 
     structural = detect_structural_gaps
+    gaps, error = generate_gaps(structural)
 
     Result.new(
-      gaps: generate_gaps(structural),
+      gaps:,
+      error:,
       model: @model,
       model_label: MODELS.fetch(@model),
       models: MODELS,
@@ -91,21 +96,40 @@ class NegativeSpaceQuery
     )
   end
 
+  # One honest line about why the model call failed, shown on the page instead
+  # of a silent empty result.
+  def self.friendly_error(exception)
+    case exception
+    when RubyLLM::PaymentRequiredError
+      "The model provider rejected the request for lack of credits \u2014 top up at openrouter.ai/settings/credits."
+    when RubyLLM::UnauthorizedError
+      "The model provider rejected the API key \u2014 check OPENROUTER_API_KEY in .env."
+    when StructuredChat::ValidationError
+      "The model kept returning malformed output \u2014 try a different model."
+    else
+      "The model call failed (#{exception.class.name.demodulize}) \u2014 try again or switch models."
+    end
+  end
+
   private
 
+  # Returns [gaps, error]; a failure comes back as an empty list plus an honest
+  # one-line reason instead of silently empty.
   def generate_gaps(structural)
     content = StructuredChat.new(NegativeSpaceSchema, instructions: INSTRUCTIONS, model: @model)
                             .ask(message_with(structural))
 
-    content["gaps"].map do |g|
+    gaps = content["gaps"].map do |g|
       Gap.new(
         title: g["title"], rationale: g["rationale"], question: g["question"],
         confidence: g["confidence"].to_i, certainty_basis: g["certainty_basis"]
       )
     end
-  rescue StructuredChat::ValidationError, StandardError => e
+
+    [gaps, nil]
+  rescue StandardError => e
     Rails.logger.error("NegativeSpaceQuery failed: #{e.message}")
-    []
+    [[], self.class.friendly_error(e)]
   end
 
   # Ground the prompt in measured structural gaps when InfraNodus is configured;
@@ -126,7 +150,7 @@ class NegativeSpaceQuery
   def empty_result
     Result.new(gaps: [], model: @model, model_label: MODELS.fetch(@model), models: MODELS,
                topic: @topic, trail: @trail, prompt: INSTRUCTIONS, corpus_count: 0,
-               grounded_by: "model only", structural_gaps: [])
+               grounded_by: "model only", structural_gaps: [], error: nil)
   end
 
   def corpus_message
@@ -151,10 +175,29 @@ class NegativeSpaceQuery
   end
 
   # The insights of the articles opened on the trail (parent roll-up included):
-  # "what hasn't this session looked at".
+  # "what hasn't this session looked at". A topic, when given, narrows within
+  # the trail by embedding similarity; either way the corpus is capped at @limit.
   def trail_scoped_items
-    articles = @trail.trail_steps.opened.filter_map(&:subject).select { |s| s.is_a?(Article) }
-    articles.flat_map(&:rolled_up_insights).uniq
+    scope = Insight.complete.where(id: trail_insight_ids)
+
+    if @topic
+      embedding = LLM.embed(@topic).vectors
+      scope.nearest_neighbors(:embedding, embedding, distance: "cosine").limit(@limit).to_a
+    else
+      scope.order(created_at: :desc).limit(@limit).to_a
+    end
+  end
+
+  # Rolled-up insight ids for every article opened on the trail, in three
+  # queries total (articles + their children, root insights, child parents).
+  def trail_insight_ids
+    articles = @trail.trail_steps.opened.includes(:subject).filter_map(&:subject).grep(Article)
+    article_ids = articles.map(&:id) + Article.where(parent_id: articles.map(&:id)).pluck(:id)
+
+    root_ids = Insight.complete.roots.where(article_id: article_ids).pluck(:id)
+    parent_ids = Insight.complete.children.where(article_id: article_ids).pluck(:parent_id)
+
+    (root_ids + parent_ids).uniq
   end
 
   def topic_scoped_items
