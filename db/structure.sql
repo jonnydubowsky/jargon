@@ -213,6 +213,38 @@ ALTER SEQUENCE public.insights_id_seq OWNED BY public.insights.id;
 
 
 --
+-- Name: prompts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.prompts (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    content text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.prompts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.prompts_id_seq OWNED BY public.prompts.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -411,6 +443,13 @@ ALTER TABLE ONLY public.insights ALTER COLUMN id SET DEFAULT nextval('public.ins
 
 
 --
+-- Name: prompts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompts ALTER COLUMN id SET DEFAULT nextval('public.prompts_id_seq'::regclass);
+
+
+--
 -- Name: search_articles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -467,6 +506,14 @@ ALTER TABLE ONLY public.articles
 
 ALTER TABLE ONLY public.insights
     ADD CONSTRAINT insights_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: prompts prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompts
+    ADD CONSTRAINT prompts_pkey PRIMARY KEY (id);
 
 
 --
@@ -578,6 +625,13 @@ CREATE INDEX index_insights_on_parent_id ON public.insights USING btree (parent_
 --
 
 CREATE UNIQUE INDEX index_insights_on_slug ON public.insights USING btree (slug);
+
+
+--
+-- Name: index_prompts_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_prompts_on_key ON public.prompts USING btree (key);
 
 
 --
@@ -719,6 +773,7 @@ ALTER TABLE ONLY public.insights
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260624130000'),
 ('20260624120000'),
 ('20251204012638'),
 ('20251203154201'),
