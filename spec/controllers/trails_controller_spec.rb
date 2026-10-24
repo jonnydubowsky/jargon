@@ -5,6 +5,22 @@ require "rails_helper"
 RSpec.describe TrailsController do
   render_views
 
+  describe "GET #index" do
+    it "lists trails that have steps, newest first" do
+      old_trail = Trail.create!(created_at: 2.days.ago)
+      old_trail.record_search!("older question")
+      new_trail = Trail.create!
+      new_trail.record_search!("newer question")
+      Trail.create! # empty, hidden
+
+      get :index
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body.index("newer question")).to be < response.body.index("older question")
+      expect(response.body).not_to include("Untitled trail")
+    end
+  end
+
   describe "GET #show" do
     it "renders the trail's steps in order" do
       trail = Trail.create!

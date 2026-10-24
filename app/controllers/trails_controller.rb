@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class TrailsController < ApplicationController
+  def index
+    @trails = Trail.joins(:trail_steps).distinct.order(created_at: :desc).limit(50).includes(:trail_steps)
+  end
+
   def show
     @trail = Trail.find(params[:id])
   end

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   root "companion#index"
   get "library", to: "welcome#index"
   resources :readings, only: [:create]
-  resources :trails, only: %i[show create update]
+  resources :trails, only: %i[index show create update]
   patch "prompts", to: "prompts#update", as: :prompts
   delete "prompts", to: "prompts#destroy"
   get "negative-space", to: "negative_space#index", as: :negative_space

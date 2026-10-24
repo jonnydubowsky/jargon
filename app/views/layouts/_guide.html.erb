@@ -18,6 +18,14 @@
       </ul>
     </div>
 
+    <%= link_to trails_path, class: "block surface-alt border border-default rounded-lg p-4 hover:border-strong transition-colors" do %>
+      <h3 class="font-semibold text-heading mb-1 flex items-center gap-2">
+        Trails
+        <span class="text-blue-400">\u2192</span>
+      </h3>
+      <p class="text-muted text-xs leading-relaxed">Your research sessions \u2014 every question asked and page opened, in order.</p>
+    <% end %>
+
     <%= link_to library_path, class: "block surface-alt border border-default rounded-lg p-4 hover:border-strong transition-colors" do %>
       <h3 class="font-semibold text-heading mb-1 flex items-center gap-2">
         Library
