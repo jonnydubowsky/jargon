@@ -9,7 +9,7 @@
         </div>
       <% end %>
       <div class="flex-1 relative min-w-[200px]" data-controller="autocomplete">
-        <%= form_with url: queries_path, method: :post, class: "flex gap-2" do |f| %>
+        <%= form_with url: root_path, method: :get, class: "flex gap-2" do |f| %>
           <%= f.text_field :q,
               placeholder: "URL or question...",
               autocomplete: "off",
