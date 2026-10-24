@@ -15,6 +15,13 @@
     <p class="text-muted mt-2">
       The path this session took — every question asked and page opened, in order.
     </p>
+
+    <% if @trail.trail_steps.opened.any? %>
+      <%= link_to negative_space_path(trail_id: @trail.id, run: 1),
+          class: "inline-block mt-3 px-4 py-2 surface-alt border border-default rounded-lg text-sm text-body hover:border-strong transition-colors" do %>
+        Find this trail's blind spots →
+      <% end %>
+    <% end %>
   </div>
 
   <% if @trail.trail_steps.empty? %>

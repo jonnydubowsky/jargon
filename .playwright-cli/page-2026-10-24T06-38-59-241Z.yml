@@ -1,0 +1,111 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e4]:
+      - link "Sense Collective Dynamic Knowledge Ecosystem" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e7]:
+          - generic [ref=e8]: Sense Collective
+          - generic [ref=e9]:
+            - strong [ref=e10]: D
+            - text: ynamic
+            - strong [ref=e11]: K
+            - text: nowledge
+            - strong [ref=e12]: E
+            - text: cosystem
+      - generic [ref=e14]:
+        - textbox "URL or question..." [ref=e15]
+        - button "Go" [ref=e16] [cursor=pointer]
+  - generic [ref=e18]:
+    - main [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]:
+          - paragraph [ref=e22]: Trail · started Oct 24, 2026
+          - generic [ref=e23]:
+            - textbox "Name this trail..." [ref=e24]: how do ruby fibers enable async servers
+            - button "Rename" [ref=e25] [cursor=pointer]
+          - paragraph [ref=e26]: The path this session took — every question asked and page opened, in order.
+        - list [ref=e27]:
+          - listitem [ref=e28]:
+            - generic [ref=e29]: "1"
+            - generic [ref=e32]:
+              - paragraph [ref=e33]: Searched
+              - link "how do ruby fibers enable async servers" [ref=e34] [cursor=pointer]:
+                - /url: /?q=how+do+ruby+fibers+enable+async+servers
+          - listitem [ref=e35]:
+            - generic [ref=e36]: "2"
+            - generic [ref=e38]:
+              - paragraph [ref=e39]: Opened
+              - generic [ref=e40]:
+                - generic [ref=e44]:
+                  - heading [level=2] [ref=e45]:
+                    - link "HTTP server in Ruby 3 - Fibers & Ractors" [ref=e46] [cursor=pointer]:
+                      - /url: /articles/http-server-in-ruby-3-fibers-ractors-dmitry-ishkov
+                  - paragraph [ref=e47]: By Dmitry Ishkov • 2021-07-25
+                - paragraph [ref=e48]: Ruby 3 introduces Fibers and Ractors to improve concurrency beyond traditional single and multi-threaded models. Ractors excel in CPU-heavy tasks due to parallel execution, while Fibers offer efficient I/O handling with less overhead than threads, making them suitable for typical I/O-bound web applications.
+    - complementary [ref=e49]:
+      - generic [ref=e50]:
+        - generic [ref=e51]:
+          - heading "Quick Start" [level=3] [ref=e52]
+          - list [ref=e53]:
+            - listitem [ref=e54]:
+              - generic [ref=e55]: "1."
+              - generic [ref=e56]:
+                - text: Paste a
+                - strong [ref=e57]: URL
+                - text: to ingest articles, videos, or papers
+            - listitem [ref=e58]:
+              - generic [ref=e59]: "2."
+              - generic [ref=e60]:
+                - text: Ask a
+                - strong [ref=e61]: question
+                - text: to search your library
+            - listitem [ref=e62]:
+              - generic [ref=e63]: "3."
+              - generic [ref=e64]:
+                - text: Click
+                - strong [ref=e65]: Explore
+                - text: to discover related content
+        - link [ref=e66] [cursor=pointer]:
+          - /url: /library
+          - heading "Library →" [level=3] [ref=e67]:
+            - text: Library
+            - generic [ref=e68]: →
+          - paragraph [ref=e69]: Browse everything collected so far — articles, insights, and research threads.
+        - link [ref=e70] [cursor=pointer]:
+          - /url: /negative-space
+          - heading "Negative Space →" [level=3] [ref=e71]:
+            - text: Negative Space
+            - generic [ref=e72]: →
+          - paragraph [ref=e73]:
+            - text: See what your library
+            - emphasis [ref=e74]: isn't
+            - text: saying yet — and turn a blind spot into research.
+        - generic [ref=e75]:
+          - heading "Supported Content" [level=3] [ref=e76]
+          - list [ref=e77]:
+            - listitem [ref=e78]:
+              - generic [ref=e80]: Web articles
+            - listitem [ref=e81]:
+              - generic [ref=e83]: YouTube videos
+            - listitem [ref=e84]:
+              - generic [ref=e86]: PDFs & academic papers
+            - listitem [ref=e87]:
+              - generic [ref=e89]: Web search results
+        - generic [ref=e90]:
+          - heading "How It Works" [level=3] [ref=e91]
+          - list [ref=e92]:
+            - listitem [ref=e93]:
+              - strong [ref=e94]: Ingest
+              - text: — Content is scraped and parsed
+            - listitem [ref=e95]:
+              - strong [ref=e96]: Summarize
+              - text: — AI distills key points
+            - listitem [ref=e97]:
+              - strong [ref=e98]: Extract
+              - text: — Insights become linked cards
+            - listitem [ref=e99]:
+              - strong [ref=e100]: Connect
+              - text: — Similar content clusters
+            - listitem [ref=e101]:
+              - strong [ref=e102]: Thread
+              - text: — Research questions find more

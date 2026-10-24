@@ -9,12 +9,21 @@
     </p>
   </div>
 
+  <% if @trail %>
+    <div class="mb-6 surface-alt border border-default rounded-lg px-4 py-3 text-sm text-muted flex items-center gap-2">
+      <span>Scoped to trail:</span>
+      <%= link_to @trail.display_name, trail_path(@trail), class: "text-blue-400 hover:underline" %>
+      <%= link_to "Scan the whole library instead", negative_space_path, class: "ml-auto text-muted hover:text-body underline" %>
+    </div>
+  <% end %>
+
   <%= form_with url: negative_space_path, method: :get, class: "mb-10 space-y-3" do |f| %>
     <%= f.hidden_field :run, value: "1" %>
+    <%= f.hidden_field :trail_id, value: @trail&.id %>
 
     <%= f.text_field :topic,
         value: params[:topic],
-        placeholder: "Narrow to a topic (optional) — leave blank to scan everything",
+        placeholder: @trail ? "Narrow within this trail (optional)" : "Narrow to a topic (optional) — leave blank to scan everything",
         class: "w-full px-4 py-3 surface border border-strong rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" %>
 
     <div class="flex gap-3">

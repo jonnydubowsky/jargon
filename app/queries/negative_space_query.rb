@@ -59,13 +59,14 @@ class NegativeSpaceQuery
       end
     end
   end
-  Result = Data.define(:gaps, :model, :model_label, :models, :topic, :prompt,
+  Result = Data.define(:gaps, :model, :model_label, :models, :topic, :trail, :prompt,
                        :corpus_count, :grounded_by, :structural_gaps) do
     def empty? = gaps.empty?
   end
 
-  def initialize(topic: nil, model: DEFAULT_MODEL, limit: 40, detector: Infranodus::GapDetector.new)
+  def initialize(topic: nil, model: DEFAULT_MODEL, limit: 40, detector: Infranodus::GapDetector.new, trail: nil)
     @topic = topic.to_s.strip.presence
+    @trail = trail
     @model = MODELS.key?(model) ? model : DEFAULT_MODEL
     @limit = limit
     @detector = detector
@@ -82,6 +83,7 @@ class NegativeSpaceQuery
       model_label: MODELS.fetch(@model),
       models: MODELS,
       topic: @topic,
+      trail: @trail,
       prompt: INSTRUCTIONS,
       corpus_count: corpus_items.size,
       grounded_by: structural.grounded? ? "InfraNodus graph analysis" : "model only",
@@ -123,17 +125,36 @@ class NegativeSpaceQuery
 
   def empty_result
     Result.new(gaps: [], model: @model, model_label: MODELS.fetch(@model), models: MODELS,
-               topic: @topic, prompt: INSTRUCTIONS, corpus_count: 0,
+               topic: @topic, trail: @trail, prompt: INSTRUCTIONS, corpus_count: 0,
                grounded_by: "model only", structural_gaps: [])
   end
 
   def corpus_message
-    header = @topic ? "What the collection currently covers about \"#{@topic}\":" : "What the collection currently covers:"
+    header = if @trail
+               "What this research session has covered so far (trail: #{@trail.display_name}):"
+             elsif @topic
+               "What the collection currently covers about \"#{@topic}\":"
+             else
+               "What the collection currently covers:"
+             end
     "#{header}\n#{corpus_items.map { |item| "- #{item_title(item)}" }.join("\n")}"
   end
 
   def corpus_items
-    @corpus_items ||= @topic ? topic_scoped_items : recent_roots
+    @corpus_items ||= if @trail
+                        trail_scoped_items
+                      elsif @topic
+                        topic_scoped_items
+                      else
+                        recent_roots
+                      end
+  end
+
+  # The insights of the articles opened on the trail (parent roll-up included):
+  # "what hasn't this session looked at".
+  def trail_scoped_items
+    articles = @trail.trail_steps.opened.filter_map(&:subject).select { |s| s.is_a?(Article) }
+    articles.flat_map(&:rolled_up_insights).uniq
   end
 
   def topic_scoped_items

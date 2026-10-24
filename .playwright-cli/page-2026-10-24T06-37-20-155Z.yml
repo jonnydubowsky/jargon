@@ -1,0 +1,142 @@
+- generic [active] [ref=e85]:
+  - banner [ref=e86]:
+    - generic [ref=e88]:
+      - link "Sense Collective Dynamic Knowledge Ecosystem" [ref=e89] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e91]:
+          - generic [ref=e92]: Sense Collective
+          - generic [ref=e93]:
+            - strong [ref=e94]: D
+            - text: ynamic
+            - strong [ref=e95]: K
+            - text: nowledge
+            - strong [ref=e96]: E
+            - text: cosystem
+      - generic [ref=e98]:
+        - textbox "URL or question..." [ref=e99]
+        - button "Go" [ref=e100] [cursor=pointer]
+  - generic [ref=e102]:
+    - main [ref=e103]:
+      - generic [ref=e104]:
+        - generic [ref=e105]:
+          - heading "Search" [level=1] [ref=e106]
+          - paragraph [ref=e107]:
+            - text: Ask a question or paste a URL. What you search and what you open is remembered as a
+            - strong [ref=e108]: trail
+            - text: — the path from one idea to the next.
+        - generic [ref=e110]:
+          - textbox "Question or URL..." [ref=e111]: how do ruby fibers enable async servers
+          - button "Search" [ref=e112] [cursor=pointer]
+        - generic [ref=e113]:
+          - 'link "Current trail: how do ruby fibers enable async servers (1 step)" [ref=e114] [cursor=pointer]':
+            - /url: /trails/4
+          - button "Start a new trail" [ref=e116] [cursor=pointer]
+        - group [ref=e117]:
+          - generic [ref=e118] [cursor=pointer]:
+            - text: How this was generated — results come straight from
+            - strong [ref=e119]: Exa neural search
+            - text: ", unranked and unfiltered by any prompt. Details →"
+        - generic [ref=e120]:
+          - button "Fiber ¶ ↑ https://docs.ruby-lang.org/en/master/fiber_md.html" [ref=e123] [cursor=pointer]:
+            - generic [ref=e124]: Fiber ¶ ↑
+            - generic [ref=e125]: https://docs.ruby-lang.org/en/master/fiber_md.html
+          - button "Getting Started https://socketry.github.io/async/guides/getting-started/" [ref=e128] [cursor=pointer]:
+            - generic [ref=e129]: Getting Started
+            - generic [ref=e130]: https://socketry.github.io/async/guides/getting-started/
+          - button "HTTP server in Ruby 3 - Fibers & Ractors — Dmitry Ishkov https://www.dmitry-ishkov.com/blog/http-server-in-ruby-3-fibers-ractors/ Jul 25, 2021" [ref=e133] [cursor=pointer]:
+            - generic [ref=e134]: HTTP server in Ruby 3 - Fibers & Ractors — Dmitry Ishkov
+            - generic [ref=e135]: https://www.dmitry-ishkov.com/blog/http-server-in-ruby-3-fibers-ractors/
+            - generic [ref=e136]: Jul 25, 2021
+          - button "Fibers Are the Right Solution https://www.codeotaku.com/journal/2018-11/fibers-are-the-right-solution/index Samuel Williams · Nov 16, 2018" [ref=e139] [cursor=pointer]:
+            - generic [ref=e140]: Fibers Are the Right Solution
+            - generic [ref=e141]: https://www.codeotaku.com/journal/2018-11/fibers-are-the-right-solution/index
+            - generic [ref=e142]: Samuel Williams · Nov 16, 2018
+          - button "Ruby Fiber Scheduler https://brunosutic.com/blog/ruby-fiber-scheduler Feb 25, 2022" [ref=e145] [cursor=pointer]:
+            - generic [ref=e146]: Ruby Fiber Scheduler
+            - generic [ref=e147]: https://brunosutic.com/blog/ruby-fiber-scheduler
+            - generic [ref=e148]: Feb 25, 2022
+          - button "The Fiber Scheduler Interface - Concurrency in Modern Ruby | Stanza https://www.stanza.dev/courses/ruby-concurrency/fibers-scheduler/ruby-concurrency-fiber-scheduler-interface" [ref=e151] [cursor=pointer]:
+            - generic [ref=e152]: The Fiber Scheduler Interface - Concurrency in Modern Ruby | Stanza
+            - generic [ref=e153]: https://www.stanza.dev/courses/ruby-concurrency/fibers-scheduler/ruby-concurrency-fiber-scheduler-interface
+          - button "Getting Started https://socketry.github.io/falcon/guides/getting-started/index.html" [ref=e156] [cursor=pointer]:
+            - generic [ref=e157]: Getting Started
+            - generic [ref=e158]: https://socketry.github.io/falcon/guides/getting-started/index.html
+          - button "guides/getting-started/readme.md https://github.com/socketry/falcon/blob/main/guides/getting-started/readme.md" [ref=e161] [cursor=pointer]:
+            - generic [ref=e162]: guides/getting-started/readme.md
+            - generic [ref=e163]: https://github.com/socketry/falcon/blob/main/guides/getting-started/readme.md
+          - button "Introduction to fibers - Lucas Mendelowski https://www.mendelowski.com/blog/2026/02/introduction-to-fibers Feb 2, 2026" [ref=e166] [cursor=pointer]:
+            - generic [ref=e167]: Introduction to fibers - Lucas Mendelowski
+            - generic [ref=e168]: https://www.mendelowski.com/blog/2026/02/introduction-to-fibers
+            - generic [ref=e169]: Feb 2, 2026
+          - button "Building an Async Server with Fiber - Speaker Deck https://speakerdeck.com/luikore/building-an-async-server-with-fiber Oct 26, 2013" [ref=e172] [cursor=pointer]:
+            - generic [ref=e173]: Building an Async Server with Fiber - Speaker Deck
+            - generic [ref=e174]: https://speakerdeck.com/luikore/building-an-async-server-with-fiber
+            - generic [ref=e175]: Oct 26, 2013
+        - paragraph [ref=e176]: Opening a result reads it inside Sense Collective and adds it to your trail and library.
+    - complementary [ref=e177]:
+      - generic [ref=e178]:
+        - generic [ref=e179]:
+          - heading "Quick Start" [level=3] [ref=e180]
+          - list [ref=e181]:
+            - listitem [ref=e182]:
+              - generic [ref=e183]: "1."
+              - generic [ref=e184]:
+                - text: Paste a
+                - strong [ref=e185]: URL
+                - text: to ingest articles, videos, or papers
+            - listitem [ref=e186]:
+              - generic [ref=e187]: "2."
+              - generic [ref=e188]:
+                - text: Ask a
+                - strong [ref=e189]: question
+                - text: to search your library
+            - listitem [ref=e190]:
+              - generic [ref=e191]: "3."
+              - generic [ref=e192]:
+                - text: Click
+                - strong [ref=e193]: Explore
+                - text: to discover related content
+        - link [ref=e194] [cursor=pointer]:
+          - /url: /library
+          - heading "Library →" [level=3] [ref=e195]:
+            - text: Library
+            - generic [ref=e196]: →
+          - paragraph [ref=e197]: Browse everything collected so far — articles, insights, and research threads.
+        - link [ref=e198] [cursor=pointer]:
+          - /url: /negative-space
+          - heading "Negative Space →" [level=3] [ref=e199]:
+            - text: Negative Space
+            - generic [ref=e200]: →
+          - paragraph [ref=e201]:
+            - text: See what your library
+            - emphasis [ref=e202]: isn't
+            - text: saying yet — and turn a blind spot into research.
+        - generic [ref=e203]:
+          - heading "Supported Content" [level=3] [ref=e204]
+          - list [ref=e205]:
+            - listitem [ref=e206]:
+              - generic [ref=e208]: Web articles
+            - listitem [ref=e209]:
+              - generic [ref=e211]: YouTube videos
+            - listitem [ref=e212]:
+              - generic [ref=e214]: PDFs & academic papers
+            - listitem [ref=e215]:
+              - generic [ref=e217]: Web search results
+        - generic [ref=e218]:
+          - heading "How It Works" [level=3] [ref=e219]
+          - list [ref=e220]:
+            - listitem [ref=e221]:
+              - strong [ref=e222]: Ingest
+              - text: — Content is scraped and parsed
+            - listitem [ref=e223]:
+              - strong [ref=e224]: Summarize
+              - text: — AI distills key points
+            - listitem [ref=e225]:
+              - strong [ref=e226]: Extract
+              - text: — Insights become linked cards
+            - listitem [ref=e227]:
+              - strong [ref=e228]: Connect
+              - text: — Similar content clusters
+            - listitem [ref=e229]:
+              - strong [ref=e230]: Thread
+              - text: — Research questions find more

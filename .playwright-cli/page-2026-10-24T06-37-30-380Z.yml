@@ -1,0 +1,93 @@
+- generic [active] [ref=e231]:
+  - banner [ref=e232]:
+    - generic [ref=e234]:
+      - link "Sense Collective Dynamic Knowledge Ecosystem" [ref=e235] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e237]:
+          - generic [ref=e238]: Sense Collective
+          - generic [ref=e239]:
+            - strong [ref=e240]: D
+            - text: ynamic
+            - strong [ref=e241]: K
+            - text: nowledge
+            - strong [ref=e242]: E
+            - text: cosystem
+      - generic [ref=e244]:
+        - textbox "URL or question..." [ref=e245]
+        - button "Go" [ref=e246] [cursor=pointer]
+  - generic [ref=e248]:
+    - main [ref=e249]:
+      - generic [ref=e250]:
+        - text: "On trail:"
+        - link "how do ruby fibers enable async servers" [ref=e251] [cursor=pointer]:
+          - /url: /trails/4
+      - generic [ref=e253]:
+        - paragraph [ref=e254]: https://www.dmitry-ishkov.com/blog/http-server-in-ruby-3-fibers-ractors/
+        - paragraph [ref=e259]: Loading article...
+    - complementary [ref=e260]:
+      - generic [ref=e261]:
+        - generic [ref=e262]:
+          - heading "Quick Start" [level=3] [ref=e263]
+          - list [ref=e264]:
+            - listitem [ref=e265]:
+              - generic [ref=e266]: "1."
+              - generic [ref=e267]:
+                - text: Paste a
+                - strong [ref=e268]: URL
+                - text: to ingest articles, videos, or papers
+            - listitem [ref=e269]:
+              - generic [ref=e270]: "2."
+              - generic [ref=e271]:
+                - text: Ask a
+                - strong [ref=e272]: question
+                - text: to search your library
+            - listitem [ref=e273]:
+              - generic [ref=e274]: "3."
+              - generic [ref=e275]:
+                - text: Click
+                - strong [ref=e276]: Explore
+                - text: to discover related content
+        - link [ref=e277] [cursor=pointer]:
+          - /url: /library
+          - heading "Library →" [level=3] [ref=e278]:
+            - text: Library
+            - generic [ref=e279]: →
+          - paragraph [ref=e280]: Browse everything collected so far — articles, insights, and research threads.
+        - link [ref=e281] [cursor=pointer]:
+          - /url: /negative-space
+          - heading "Negative Space →" [level=3] [ref=e282]:
+            - text: Negative Space
+            - generic [ref=e283]: →
+          - paragraph [ref=e284]:
+            - text: See what your library
+            - emphasis [ref=e285]: isn't
+            - text: saying yet — and turn a blind spot into research.
+        - generic [ref=e286]:
+          - heading "Supported Content" [level=3] [ref=e287]
+          - list [ref=e288]:
+            - listitem [ref=e289]:
+              - generic [ref=e291]: Web articles
+            - listitem [ref=e292]:
+              - generic [ref=e294]: YouTube videos
+            - listitem [ref=e295]:
+              - generic [ref=e297]: PDFs & academic papers
+            - listitem [ref=e298]:
+              - generic [ref=e300]: Web search results
+        - generic [ref=e301]:
+          - heading "How It Works" [level=3] [ref=e302]
+          - list [ref=e303]:
+            - listitem [ref=e304]:
+              - strong [ref=e305]: Ingest
+              - text: — Content is scraped and parsed
+            - listitem [ref=e306]:
+              - strong [ref=e307]: Summarize
+              - text: — AI distills key points
+            - listitem [ref=e308]:
+              - strong [ref=e309]: Extract
+              - text: — Insights become linked cards
+            - listitem [ref=e310]:
+              - strong [ref=e311]: Connect
+              - text: — Similar content clusters
+            - listitem [ref=e312]:
+              - strong [ref=e313]: Thread
+              - text: — Research questions find more
