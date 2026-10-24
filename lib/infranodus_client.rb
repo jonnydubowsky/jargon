@@ -6,7 +6,7 @@
 class InfranodusClient
   BASE_URL = "https://infranodus.com/api/v1"
 
-  def initialize(api_key: ENV["INFRANODUS_API_KEY"])
+  def initialize(api_key: ENV.fetch("INFRANODUS_API_KEY", nil))
     @api_key = api_key
   end
 

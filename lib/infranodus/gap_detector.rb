@@ -22,7 +22,7 @@ module Infranodus
 
     Result = Data.define(:gaps, :main_topics, :modularity, :source) do
       def grounded? = source == :infranodus
-      def any? = gaps.any?
+      delegate :any?, to: :gaps
     end
 
     def initialize(client: InfranodusClient.new)
