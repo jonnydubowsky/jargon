@@ -1,11 +1,16 @@
 <div align="center">
-  <img width="400px" src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/78d2c74267d611b0a99716a83fc9c3e088c33ebb/jargon-dark.png#gh-dark-mode-only" />
-  <img width="400px" src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/78d2c74267d611b0a99716a83fc9c3e088c33ebb/jargon-light.png#gh-light-mode-only" />
+  <img width="100" src="app/assets/images/sense-collective-icon.png" />
+  <h1>Sense Collective</h1>
+  <p><strong>D</strong>ynamic <strong>K</strong>nowledge <strong>E</strong>cosystem</p>
 </div>
 
-Jargon is an AI-managed zettelkasten that parses articles, papers, and videos into index card-sized key ideas. It summarizing sources, extracts ideas, links related concepts, and collapses duplicates. Semantic embeddings surface connections across the library.
+Sense Collective is an AI-managed knowledge system that parses articles, papers, and videos into interconnected insight cards. It summarizes sources, extracts key ideas, links related concepts, and automatically clusters duplicates using semantic embeddings.
 
 Each source is parsed in context of existing cards, generating new insights that link back to the original material. The result is a knowledge base of interlinked ideas that can be explored directly or used as a RAG to answer questions. Questions also pull results from the web, which flow through the same extract/summarize/link pipeline before being synthesized with library content.
+
+## Attribution
+
+This project is a fork of [Jargon](https://github.com/jargon-io/jargon) by [@schoblaska](https://github.com/schoblaska). The original Jargon project provides the core architecture for content ingestion, insight extraction, and semantic linking. We are grateful for their work in making this foundation available under GPL-3.0.
 
 ## Core Loop
 
@@ -19,24 +24,15 @@ Each source is parsed in context of existing cards, generating new insights that
 
 ### PDF Full-Text Extraction
 
-Academic papers and PDFs are automatically downloaded and converted to text using `pdftotext`. Jargon follows "full text" and DOI links from abstracts.
-
-<img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/ec06277e2fd84db17fdcaa3d76a836505d596ee2/paper_dark.png#gh-dark-mode-only" />
-<img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/ec06277e2fd84db17fdcaa3d76a836505d596ee2/paper_light.png#gh-light-mode-only" />
+Academic papers and PDFs are automatically downloaded and converted to text using `pdftotext`. Follows "full text" and DOI links from abstracts.
 
 ### YouTube Transcripts
 
 YouTube URLs are detected and transcripts are fetched directly from YouTube's API. Speakers are extracted from video titles when available.
 
-<img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/242f599e4307f36da9a2f8a3537658315e13b64b/youtube_dark.png#gh-dark-mode-only" />
-<img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/242f599e4307f36da9a2f8a3537658315e13b64b/youtube_light.png#gh-light-mode-only" />
-
 ### Insight Extraction
 
 Key findings are extracted as standalone insights with titles, explanations, and source snippets. Insights are independently searchable and linkable.
-
-<img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/731970caa6ed87082fbe89eaa88fd78b41a06a18/insight_dark.png#gh-dark-mode-only" />
-<img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/731970caa6ed87082fbe89eaa88fd78b41a06a18/insight_light.png#gh-light-mode-only" />
 
 ### Semantic Embeddings
 
@@ -50,12 +46,9 @@ Similar articles (syndicated content, republished pieces) are automatically grou
 
 Each insight can spawn research threads—questions that trigger web searches via Exa to find related articles. Discovered articles are automatically ingested and indexed.
 
-<img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/e85846f6b623c1bdbd8db09931dacf9c862b83c8/threads_dark.png#gh-dark-mode-only" />
-<img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/e85846f6b623c1bdbd8db09931dacf9c862b83c8/threads_light.png#gh-light-mode-only" />
-
 ### Library Search
 
-Ask a question or enter a topic to search your library. Jargon finds relevant insights using semantic similarity and displays them alongside the source articles.
+Ask a question or enter a topic to search your library. Finds relevant insights using semantic similarity and displays them alongside the source articles.
 
 ### Web Search
 
@@ -138,19 +131,19 @@ apt-get install poppler-utils
 
 ## Docker Deployment
 
-Run Jargon with Docker Compose using the published image from GitHub Container Registry.
+Run with Docker Compose using the published image from GitHub Container Registry.
 
 Create a `docker-compose.yml`:
 
 ```yaml
 services:
-  jargon:
-    image: ghcr.io/schoblaska/jargon:latest
+  app:
+    image: ghcr.io/your-username/sense-collective:latest
     ports:
       - "3000:80"
     env_file: .env
     environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/jargon
+      DATABASE_URL: postgres://postgres:postgres@db:5432/sense_collective
       REDIS_URL: redis://redis:6379/0
     depends_on:
       db:
@@ -165,7 +158,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: jargon
+      POSTGRES_DB: sense_collective
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -198,17 +191,6 @@ docker compose up -d
 
 The app will be available at http://localhost:3000.
 
-## TODO
-* replace Exa with Brave search and use crawl4ai to ingest
-  * do parallel searches across multiple LLM-generated queries?
-* refactor IngestArticleJob
-* define schemas inline where they're used
-* export markdown to clipboard
-* rework searches
-  * full text search
-  * make it optional to generate a summary of library results; also optional to fetch new web results
-* don't show superseded insights in autocomplete
-* youtube thumbnails as article image
-* store chats in DB and associate with article or search. use to compute costs and to audit prompts and tool calls
-* page-cached share links (just the top-level summary and links to sources)
-* ability to bookmark nodes
+## License
+
+This project is licensed under the [GNU General Public License v3.0](LICENSE.md), the same license as the original [Jargon](https://github.com/jargon-io/jargon) project.

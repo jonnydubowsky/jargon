@@ -1,0 +1,46 @@
+# Fly.io config for Sense Collective (JargonDKR).
+# First-time setup and the full command sequence live in docs/DEPLOY_FLY.md.
+app = "sense-collective"
+primary_region = "iad"
+
+[build]
+  dockerfile = "Dockerfile"
+
+# Run migrations once per release rather than on every machine boot.
+# (bin/docker-entrypoint also runs db:prepare as a safety net.)
+[deploy]
+  release_command = "bin/rails db:prepare"
+
+[env]
+  RAILS_ENV = "production"
+  PORT = "80"
+  # Falcon is fiber-based; one process serves web + async jobs (async-job) + cable (async-cable).
+  WEB_CONCURRENCY = "1"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = "suspend"
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+  [http_service.concurrency]
+    type = "requests"
+    soft_limit = 200
+    hard_limit = 250
+
+[checks]
+  [checks.up]
+    type = "http"
+    port = 80
+    method = "GET"
+    path = "/up"
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "30s"
+
+# crawl4ai + Falcon + jemalloc want headroom; bump to 2048 if ingestion OOMs.
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"

@@ -1,0 +1,29 @@
+<% content_for(:title) { "Trails | Sense Collective" } %>
+
+<div class="w-full">
+  <div class="mb-8">
+    <h1 class="text-3xl font-semibold text-heading mb-2">Trails</h1>
+    <p class="text-muted">Your research sessions — each one the path from a question to what it led to.</p>
+  </div>
+
+  <% if @trails.empty? %>
+    <div class="surface border border-strong rounded-lg p-6 text-muted">
+      No trails yet. <%= link_to "Search for something", root_path, class: "text-blue-400 hover:underline" %> — your first search starts one.
+    </div>
+  <% else %>
+    <div class="space-y-3">
+      <% @trails.each do |trail| %>
+        <%= link_to trail_path(trail), class: "block surface border border-default rounded-lg p-4 hover:border-strong transition-colors" do %>
+          <div class="flex items-baseline justify-between gap-4">
+            <span class="font-semibold text-heading truncate"><%= trail.display_name %></span>
+            <span class="text-xs text-muted shrink-0"><%= trail.created_at.strftime("%b %-d, %Y") %></span>
+          </div>
+          <p class="text-xs text-muted mt-1">
+            <%= pluralize(trail.trail_steps.length, "step") %> ·
+            <%= pluralize(trail.trail_steps.select(&:opened?).length, "page") %> opened
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

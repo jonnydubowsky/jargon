@@ -1,0 +1,40 @@
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2Fsqr-qV7ET1.png?alt=media&token=821be3c8-2b11-413f-8e40-10bd9ea42591)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FyoPw2RS45E.png?alt=media&token=4069b004-8d56-45b6-b15f-81d0bd6688bf)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FZVG6lCMrXp.png?alt=media&token=b19c819b-2579-42d3-830f-edd47ff073ca)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2F3ut1v9P3XC.png?alt=media&token=757d4be8-3bcd-4755-931b-228c3f55ffb8)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2F5rMR_IYVQj.png?alt=media&token=68cbff2b-47fb-405a-bbdd-ec90d497948f)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2Fwi8v48zX0m.png?alt=media&token=452f5ac0-8bdb-48d8-9fdf-e3bc281f58b1)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FeqRNUrAWQ8.png?alt=media&token=21d76c14-081b-45a8-bac5-07324d2fedbb)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FqkayliEWqO.png?alt=media&token=05c0f863-4de9-4bd4-820b-3c7db58b8258)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FYOIIhyHuzY.png?alt=media&token=3d917235-b136-42dc-b323-306266fda05b)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FYqlvZdLvMS.png?alt=media&token=5014d9a7-a4b3-4442-ac84-8401669feaba)
+- vector embeddings
+    - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2F7r-vCzbW5F.png?alt=media&token=385d9d6a-c288-4268-a78f-80c185eb7237)
+    - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2F3HcGM5ad23.png?alt=media&token=7e9a9305-a6cc-4904-8e38-e3ef28ebe12c)
+    - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FAFMJTYhwzD.png?alt=media&token=4cf8dce1-a4cb-4582-8f20-2c077979fd80)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FTq1F1okPuP.png?alt=media&token=b8bed019-2dc8-477a-b879-dff46dbe93f8)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FAFJ0fxNyjZ.png?alt=media&token=b9edf5a0-0ec9-46b4-8e0f-932384fa1455)
+- Exposed Prompts as Intervention Point::
+    - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2F-GEoovC1CK.png?alt=media&token=ed020197-8e4b-4fcd-b90a-e3bb2eb25780)
+- ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2F3CDo0JasWq.png?alt=media&token=f7e907e5-6ef8-47d2-ae86-85fe22ba18aa)
+- Meta-Layer
+    - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2F7TveZxtqrn.png?alt=media&token=fa119c6d-e9f3-4edd-aa0c-3f671f36301a)
+- Totem Protocol Provides::
+    - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2Fn3WMX3bLf4.png?alt=media&token=85d0fc87-ab53-4f69-b400-72b7f3073773)
+    - Persistent Identity
+    - Unified Artifact Galleries
+    - A single, persistent, connected, improveable meta-layer for all of your knowledge work.
+    - Breaking down the walls between the tools we use everyday.
+    - Tweaking and improving your tools is something that just happens as you work.
+    - DKR & 3x3 Onboarding Protocol and Onboarding Agency
+        - Connected to the Mental Modeling Agency, the Onboarding process for Totem isnt just a one-off introduction to the ecosystem, protocol and framework. It's a set of core-primatives and axioms, which serve as core mental models for how Totem protocol encodes your specifications and intent, at the context-level of each concept-space, project, LLM, agent, notebook configuration, and project management framework. 
+        - Whenever you connect an existing application or service, you will go through a quick onboarding, which just adds 1 or 2 fast menu-selections, that follow the [[Connect-To-Service/Application-X-Through-My-Gmail/Oauth]] workflow.
+        - Your Onboarding Agent will help you find the best template, skill, library, or workflow to provision the new integration, so that all your other agents can begin interacting with the information and insights from that source/connection.
+        - The Mental Modeling Agency integration::
+            - When you connect your Totem framework to your Google Drive, you have a number of intents and ideas for how you can begin leveredging the massive collection of source-material, insights, project details, context, and conditional logic which is located within the artifacts. Your ultimate goal over time, is to train your Totem DKR Agents, in how you would automate and route the conditional logic to realize the ideal state of information engineering. 
+            - DKR Agents can learn by observing your real-life user interactions and systems flows. 
+            - You don't want to hand over too much in the way of automation and control, to your DKR Agent, right out of the gate, as it is unaware of the complex-systems flows, and constraints which factor into your ideal workflows.
+            - Totem Protocol's user-interaction design is working to build out the sliders, rating systems, annotation layer, commenting, voting, and other feedback systems, that give user's as much fine-grained control over the various layers of the system, to provide input, opinions, ratings, and ordering of items from best to worst, healthy to unhealthy, fast to slow, efficient to effective.
+            - This alignment of different concepts along a 3x3 matrix of representation space, is how the 3x3 Agency designs the various generative inquiry integrations, which give 3x3 Agents their own intervention-layer into all Totem Protocol systems, wherein the 3x3 Agents can operate on what Doug Englebardt called the Team C Meta-Layer.
+            - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FbSGEEl-Biq.png?alt=media&token=7be9cc98-6247-480e-a36e-338fbe05399a)
+            - ![](https://firebasestorage.googleapis.com/v0/b/firescript-577a2.appspot.com/o/imgs%2Fapp%2FFocusedTotem%2FDk-IbMIA0F.png?alt=media&token=3218b35f-e920-46d9-8746-414f94ab67d8)
