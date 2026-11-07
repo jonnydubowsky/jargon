@@ -41,3 +41,12 @@
 
 
 .claude/settings.local.json
+
+# OpenMemory - IDE/Assistant specific rules
+CLAUDE.md
+CLAUDE.md
+
+# OS / editor junk and local agent state
+.DS_Store
+.letta/
+.playwright-cli/

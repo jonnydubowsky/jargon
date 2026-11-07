@@ -17,8 +17,13 @@ LLM_PROVIDER = ENV.fetch("LLM_PROVIDER", "openrouter").to_sym
 EMBEDDING_PROVIDER = ENV.fetch("EMBEDDING_PROVIDER", "openrouter").to_sym
 
 module LLM
-  def self.chat
-    RubyLLM.chat(provider: LLM_PROVIDER, assume_model_exists: true)
+  # Pass a model to run a single request against a non-default model.
+  # Used by the Negative Space Lens to let the same exposed prompt run on
+  # different models and surface how the result changes.
+  def self.chat(model: nil)
+    options = { provider: LLM_PROVIDER, assume_model_exists: true }
+    options[:model] = model if model.present?
+    RubyLLM.chat(**options)
   end
 
   def self.embed(text)

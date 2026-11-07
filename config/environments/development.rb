@@ -3,6 +3,9 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  # Allow access over Tailscale (tailscale serve proxies to localhost with the
+  # tailnet hostname). Scoped to this tailnet, not all of *.ts.net.
+  config.hosts << /.+\.tail2eb0c0\.ts\.net/
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Make code changes take effect immediately without server restart.

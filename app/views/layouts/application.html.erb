@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Jargon" %></title>
+    <title><%= content_for(:title) || "Sense Collective" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="Jargon">
+    <meta name="application-name" content="Sense Collective">
     <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -35,9 +35,14 @@
       </main>
     <% else %>
       <%= render "layouts/header" %>
-      <main class="container mx-auto mt-4 sm:mt-28 px-5 flex pb-32">
-        <%= yield %>
-      </main>
+      <div class="container mx-auto mt-4 sm:mt-36 px-5 pb-32">
+        <div class="flex justify-center gap-8">
+          <main class="flex-1 max-w-2xl">
+            <%= yield %>
+          </main>
+          <%= render "layouts/guide" %>
+        </div>
+      </div>
     <% end %>
   </body>
 </html>

@@ -213,6 +213,38 @@ ALTER SEQUENCE public.insights_id_seq OWNED BY public.insights.id;
 
 
 --
+-- Name: prompts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.prompts (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    content text NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: prompts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.prompts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: prompts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.prompts_id_seq OWNED BY public.prompts.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -330,6 +362,73 @@ ALTER SEQUENCE public.threads_id_seq OWNED BY public.threads.id;
 
 
 --
+-- Name: trail_steps; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.trail_steps (
+    id bigint NOT NULL,
+    trail_id bigint NOT NULL,
+    "position" integer NOT NULL,
+    action integer DEFAULT 0 NOT NULL,
+    subject_type character varying,
+    subject_id bigint,
+    query character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: trail_steps_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.trail_steps_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: trail_steps_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.trail_steps_id_seq OWNED BY public.trail_steps.id;
+
+
+--
+-- Name: trails; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.trails (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: trails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.trails_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: trails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.trails_id_seq OWNED BY public.trails.id;
+
+
+--
 -- Name: articles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -341,6 +440,13 @@ ALTER TABLE ONLY public.articles ALTER COLUMN id SET DEFAULT nextval('public.art
 --
 
 ALTER TABLE ONLY public.insights ALTER COLUMN id SET DEFAULT nextval('public.insights_id_seq'::regclass);
+
+
+--
+-- Name: prompts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompts ALTER COLUMN id SET DEFAULT nextval('public.prompts_id_seq'::regclass);
 
 
 --
@@ -365,6 +471,20 @@ ALTER TABLE ONLY public.threads ALTER COLUMN id SET DEFAULT nextval('public.thre
 
 
 --
+-- Name: trail_steps id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.trail_steps ALTER COLUMN id SET DEFAULT nextval('public.trail_steps_id_seq'::regclass);
+
+
+--
+-- Name: trails id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.trails ALTER COLUMN id SET DEFAULT nextval('public.trails_id_seq'::regclass);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -386,6 +506,14 @@ ALTER TABLE ONLY public.articles
 
 ALTER TABLE ONLY public.insights
     ADD CONSTRAINT insights_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: prompts prompts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prompts
+    ADD CONSTRAINT prompts_pkey PRIMARY KEY (id);
 
 
 --
@@ -418,6 +546,22 @@ ALTER TABLE ONLY public.searches
 
 ALTER TABLE ONLY public.threads
     ADD CONSTRAINT threads_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: trail_steps trail_steps_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.trail_steps
+    ADD CONSTRAINT trail_steps_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: trails trails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.trails
+    ADD CONSTRAINT trails_pkey PRIMARY KEY (id);
 
 
 --
@@ -484,6 +628,13 @@ CREATE UNIQUE INDEX index_insights_on_slug ON public.insights USING btree (slug)
 
 
 --
+-- Name: index_prompts_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_prompts_on_key ON public.prompts USING btree (key);
+
+
+--
 -- Name: index_search_articles_on_article_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -547,6 +698,35 @@ CREATE INDEX index_threads_on_subject ON public.threads USING btree (subject_typ
 
 
 --
+-- Name: index_trail_steps_on_subject; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_trail_steps_on_subject ON public.trail_steps USING btree (subject_type, subject_id);
+
+
+--
+-- Name: index_trail_steps_on_trail_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_trail_steps_on_trail_id ON public.trail_steps USING btree (trail_id);
+
+
+--
+-- Name: index_trail_steps_on_trail_id_and_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_trail_steps_on_trail_id_and_position ON public.trail_steps USING btree (trail_id, "position");
+
+
+--
+-- Name: trail_steps fk_rails_286fb27643; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.trail_steps
+    ADD CONSTRAINT fk_rails_286fb27643 FOREIGN KEY (trail_id) REFERENCES public.trails(id);
+
+
+--
 -- Name: search_articles fk_rails_59c83cbdf9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -593,6 +773,8 @@ ALTER TABLE ONLY public.insights
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
+('20260624130000'),
+('20260624120000'),
 ('20251204012638'),
 ('20251203154201'),
 ('20251203153904'),

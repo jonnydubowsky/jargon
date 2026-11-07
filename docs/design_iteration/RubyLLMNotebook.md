@@ -1,0 +1,24 @@
+- [[RubyLLMNotebook]]
+- ## Overview
+    - This page serves as a central repository for all RubyLLM-related items extracted from various notes. The content includes links, insights, and references that can be exported to markdown for further use.
+- ### Key Links and Resources
+    - **RubyLLM Terminal Emulator**: [PicoRuby Terminal](https://picoruby.org/terminal-emulator) https://picoruby.org/terminal-emulator
+    - **RubyLLM Video Content**:
+        - [YouTube Video 1](https://www.youtube.com/watch?v=cFK_2FW7wRg) https://www.youtube.com/watch?v=cFK_2FW7wRg
+        - [YouTube Video 2](https://www.youtube.com/watch?v=WiJC_v5Lus8) https://www.youtube.com/watch?v=WiJC_v5Lus8
+    - **RubyLLM Related Articles**:
+        - [Chat with Work](https://chatwithwork.com/) #RubyLLM https://chatwithwork.com/ #RubyLLM
+        - [PicoRuby Homepage](https://picoruby.org/) https://picoruby.org/
+        - [Euruko 2024 Presentation](https://slide.rabbit-shocker.org/authors/hasumikin/Euruko2024/) https://slide.rabbit-shocker.org/authors/hasumikin/Euruko2024/
+- ### Additional Interesting Links
+    - [Stream Place](https://stream.place) * https://stream.place
+    - [Tangled](https://tangled.org) * https://tangled.org
+    - [Germ Network](https://www.germnetwork.com/) * https://www.germnetwork.com/
+    - [Slices Network](https://slices.network) * https://slices.network/
+    - [Smoke Signal Events](https://smokesignal.events/) * https://smokesignal.events/
+    - [Graze Social](https://www.graze.social/) * https://www.graze.social/
+- ### Insights and Thoughts
+    - There's a significant interest in rebuilding existing tools with a focus on user privacy and data architecture, particularly in the context of RubyLLM and related plugins ((eVO3tYSg6)).
+    - The exploration of ATProto applications beyond microblogging highlights the potential for innovative tools within the RubyLLM ecosystem I wouldn't write ATProto off as just microblogging, there are a bunch of interesting (and exciting depending on your POV) apps out there that _aren't_ microblogging apps. To name a few:.
+- ### Conclusion
+    - This notebook captures essential RubyLLM resources and insights that reflect the current state and future potential of the technology. It serves as a valuable reference for further exploration and development in the RubyLLM space.
