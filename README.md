@@ -53,6 +53,55 @@ Each insight can spawn research threads—questions that trigger web searches vi
 <img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/e85846f6b623c1bdbd8db09931dacf9c862b83c8/threads_dark.png#gh-dark-mode-only" />
 <img src="https://gist.githubusercontent.com/schoblaska/fd570fee9180de09e3c4fd57d26283b9/raw/e85846f6b623c1bdbd8db09931dacf9c862b83c8/threads_light.png#gh-light-mode-only" />
 
+### Save Insights to a Vault
+
+Each insight can be saved as a Markdown note with YAML front matter into a local vault folder (Obsidian, Entailment, or any markdown directory). Optionally, the same insight is exported to an InfraNodus graph when an API key is present.
+
+On an insight page, click **Save**, or from the command line:
+
+```bash
+bin/rails insights:save[insight-slug-or-nanoid]
+```
+
+Set the vault path in `.env`:
+
+```bash
+JARGON_VAULT_PATH=/path/to/your/vault
+JARGON_VAULT_INSIGHTS_FOLDER=Insights   # optional, default Insights
+```
+
+Notes are written to `{JARGON_VAULT_PATH}/{JARGON_VAULT_INSIGHTS_FOLDER}/{slug}.md`. Front matter includes `title`, `created`, `source`, `tags`, and a stable `id` (the insight nanoid). The body is the insight text; an **Evidence** section is added when a source snippet exists.
+
+```markdown
+---
+title: Key Insight
+created: 2026-11-07T02:49:00Z
+source: https://example.com/article
+source_title: Example Article
+tags:
+- insight
+- jargon
+id: V1StGXR8_Z5jdHi6B-myT
+---
+
+The main takeaway from the article.
+
+## Evidence
+
+Original text from the source.
+```
+
+#### InfraNodus export
+
+When `INFRANODUS_API_KEY` is set, Save also creates or updates a statement on a named InfraNodus graph (default `jargon-insights`, override with `INFRANODUS_GRAPH_NAME`). The statement is tagged with `jargon:{nanoid}` so a second save updates the existing note instead of duplicating it.
+
+Without credentials, InfraNodus export is a dry-run stub: the vault note still writes, and the UI/CLI reports that InfraNodus was skipped. Tokens are read from the environment only and are never logged or committed.
+
+```bash
+INFRANODUS_API_KEY=your-token          # https://infranodus.com/api-access
+INFRANODUS_GRAPH_NAME=jargon-insights  # optional
+```
+
 ### Library Search
 
 Ask a question or enter a topic to search your library. Jargon finds relevant insights using semantic similarity and displays them alongside the source articles.
@@ -104,6 +153,17 @@ EMBEDDING_PROVIDER=openrouter                  # Embedding provider (default)
 ```
 
 Provider must match the API key you're using. OpenRouter model names use `provider/model` format.
+
+### Insight vault and InfraNodus
+
+```bash
+JARGON_VAULT_PATH=/path/to/your/vault   # Obsidian, Entailment, or any markdown folder
+# JARGON_VAULT_INSIGHTS_FOLDER=Insights
+# INFRANODUS_API_KEY=                    # optional; skipped/stubbed when unset
+# INFRANODUS_GRAPH_NAME=jargon-insights
+```
+
+See [Save Insights to a Vault](#save-insights-to-a-vault) for the markdown format and InfraNodus create-or-update behavior.
 
 ### Rails Master Key
 
@@ -203,7 +263,7 @@ The app will be available at http://localhost:3000.
   * do parallel searches across multiple LLM-generated queries?
 * refactor IngestArticleJob
 * define schemas inline where they're used
-* export markdown to clipboard
+* export markdown to clipboard (vault export now writes a markdown note; clipboard copy is still open)
 * rework searches
   * full text search
   * make it optional to generate a summary of library results; also optional to fetch new web results

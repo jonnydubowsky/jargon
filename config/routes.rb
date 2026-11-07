@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   root "welcome#index"
   get "autocomplete", to: "autocomplete#index"
   resources :articles, only: [:show]
-  resources :insights, only: [:show]
+  resources :insights, only: [:show] do
+    member do
+      post :save
+    end
+  end
   resources :searches, only: %i[show update]
   resources :queries, only: [:create]
 end

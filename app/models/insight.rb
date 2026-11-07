@@ -80,4 +80,19 @@ class Insight < ApplicationRecord
   def broadcast_to_parents
     article&.broadcast_self
   end
+
+  def save_to_vault(**)
+    Insight::VaultNote.new(self, **).write
+  end
+
+  def save_to_infranodus(**)
+    Insight::InfranodusNote.new(self, **).save
+  end
+
+  def save_to_account
+    Insight::SaveResult.new(
+      vault: save_to_vault,
+      infranodus: save_to_infranodus
+    )
+  end
 end
