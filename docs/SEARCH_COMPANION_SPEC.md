@@ -41,6 +41,15 @@ Glass box across all three: every surface shows its generating prompt (the lens'
 panel pattern). Editing starts with the companion's own prompts via a small PromptRegistry —
 not all five pipeline prompts — and grows from there.
 
+## Saving insights outward
+
+A fourth flow, specced in detail as the module spec **[insight-save](INSIGHT_SAVE_SPEC.md)**:
+one Save action on an insight card fans out to every configured destination — a markdown note
+with ShurIQ-compatible front matter in the user's vault (the write is the publish when the
+folder is synced), an InfraNodus graph (create-or-update keyed by the insight's nanoid), and a
+local git commit in the vault repo. Destinations form a registry so more (clipboard, Turtle
+export, webhook) are additive. Bulk export (trail or library sets) is designed for but deferred.
+
 ## Trail capture: in-app search + reader (decided)
 
 Considered: browser extension, in-app browser/reader, search-only.
