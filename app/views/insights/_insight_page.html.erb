@@ -26,6 +26,16 @@
 
   <h1 class="text-3xl font-bold text-heading"><%= insight.title %></h1>
 
+  <% if flash[:notice] %>
+    <p class="text-sm text-muted"><%= flash[:notice] %></p>
+  <% elsif flash[:alert] %>
+    <p class="text-sm text-red-600 dark:text-red-400"><%= flash[:alert] %></p>
+  <% end %>
+
+  <%= button_to "Save", save_insight_path(insight),
+        method: :post,
+        class: "text-sm text-link cursor-pointer bg-transparent border-0 p-0" %>
+
   <% if insight.body.present? %>
     <p class="text-lg text-body leading-relaxed"><%= render_content(insight.body, current_item: insight) %></p>
   <% end %>

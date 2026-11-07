@@ -25,4 +25,17 @@ class InsightsController < ApplicationController
       exclude: exclude_items
     ).call
   end
+
+  def save
+    @insight = Insight.resolve_identifier!(params[:id])
+    result = @insight.save_to_account
+
+    if result.unconfigured?
+      redirect_to @insight, alert: "Set JARGON_VAULT_PATH to save a markdown note, or INFRANODUS_API_KEY to export to InfraNodus."
+    elsif result.error?
+      redirect_to @insight, alert: result.notice
+    else
+      redirect_to @insight, notice: result.notice
+    end
+  end
 end

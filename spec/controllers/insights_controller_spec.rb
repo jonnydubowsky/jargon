@@ -28,4 +28,29 @@ RSpec.describe InsightsController do
       end
     end
   end
+
+  describe "POST #save" do
+    it "saves the insight to the vault and redirects with a notice" do
+      insight = create(:insight, title: "Key Insight")
+
+      Dir.mktmpdir do |dir|
+        allow(Insight::VaultNote).to receive(:vault_path).and_return(dir)
+
+        post :save, params: { id: insight.slug }
+
+        expect(response).to redirect_to(insight_path(insight))
+        expect(flash[:notice]).to include("Saved markdown note")
+        expect(File.read(File.join(dir, "Insights", "#{insight.slug}.md"))).to include("id: #{insight.nanoid}")
+      end
+    end
+
+    it "explains how to configure save when no vault or InfraNodus credentials are set" do
+      insight = create(:insight)
+
+      post :save, params: { id: insight.slug }
+
+      expect(response).to redirect_to(insight_path(insight))
+      expect(flash[:alert]).to include("JARGON_VAULT_PATH")
+    end
+  end
 end
